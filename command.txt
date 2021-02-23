@@ -26,3 +26,14 @@ _blocker_
 
 cat /root/bugbounty/asset.txt |aquatone |tee -a /root/bugbounty/aqua.txt
 _blocker_
+
+
+block:nmap
+amass enum  -passive _target_ -src  -o /root/bugbounty/amass_paasive.txt
+ nmap -Pn  -v -T4 -sV  -sA -sS _target_ -oN target.txt
+ nmap -Pn -sV --script http-waf-detect _target_
+ nmap -Pn -A -p- -sV --script http-waf-fingerprint _target_
+block:nmap 
+
+
+
