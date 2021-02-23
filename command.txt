@@ -1,0 +1,28 @@
+block:nmap
+amass enum -active -d _target_ -public-dns -brute -w /usr/share/wordlist/rockyou.txt -src -o  /root/bugbounty/amass_active.txt
+block:nmap
+
+
+mkdir -p bugbounty
+_blocker_
+
+subfinder -d _target_ -o /root/bugbounty/subfinder.txt
+_blocker_
+
+cat /root/bugbounty/subfinder.txt |waybckurl |tee  -a /root/bugbounty/wayback.txt
+_blocker_
+
+cat /root/bugbounty/wayback.txt |gau |tee -a /root/bugbounty/gau.txt
+_blocker_
+
+cat /root/bugbounty/gau.txt |httprobe |tee -a /root/bugbounty/http.txt
+_blocker
+_
+cat /root/bugbounty/http.txt  |unfurl |tee -a /root/bugbounty/unfurl.txt
+_blocker_
+
+cat /root/bugbounty/unfurl.txt |assetfinder -subs-only | tee -a  /root/bugbounty/asset.txt
+_blocker_
+
+cat /root/bugbounty/asset.txt |aquatone |tee -a /root/bugbounty/aqua.txt
+_blocker_
